@@ -53,8 +53,8 @@ class PishockAPI(object):
         """Shock the user with the specified intensity and duration.
         Intensity must be between 0 and 1, duration must be between 0 and 15 (or 300 for 0.5 seconds)."""
         # Sanity checks
-        if not 0 <= intensity <= 1:
-            raise ValueError("Intensity must be between 0 and 1")
+        if not 1 <= intensity <= 100:
+            raise ValueError("Intensity must be between 1 and 100")
         if not 0 <= duration <= 15 and duration != 300:
             raise ValueError("Duration must be between 0 and 15")
         # Convert intensity to a percentage
@@ -78,8 +78,8 @@ class PishockAPI(object):
         """Vibrate the user with the specified intensity and duration.
         Intensity must be between 0 and 1, duration must be between 0 and 15."""
         # Sanity checks
-        if not 0 <= intensity <= 1:
-            raise ValueError("Intensity must be between 0 and 1")
+        if not 1 <= intensity <= 100:
+            raise ValueError("Intensity must be between 1 and 100")
         if not 0 <= duration <= 15:
             raise ValueError("Duration must be between 0 and 15")
         # Convert intensity to a percentage
