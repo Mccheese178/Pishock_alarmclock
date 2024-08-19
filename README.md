@@ -11,3 +11,5 @@ A fun little alarm that shocks you when it goes off
 5. Hold shift and right click in the flie location, and then click "open powershell window here"
 6. Type "python main.py" and press enter
 7. Follow promps given
+
+## You must keep all files together for the code to run
