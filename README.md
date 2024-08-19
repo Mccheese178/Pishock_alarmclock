@@ -1,4 +1,4 @@
-# Pishock_alarm
+# Pishock_alarmclock
 A fun little alarm that shocks you when it goes off
 
 
