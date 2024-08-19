@@ -13,7 +13,7 @@ pishock = PishockAPI(api_key, username, share_code, app_name)
 
 def get_user_input():
     alarm_time_str = input("Enter the alarm time (in 24 hour HH:MM format): ")
-    intensity = float(input("Enter the shock intensity, .01 being 1% and 1 being 100%: "))
+    intensity = float(input("Enter the shock intensity, 1-100: "))//100
     shockduration = int(input("Enter the shock duration (in seconds, 1-15): "))
     return alarm_time_str, intensity, shockduration
 
@@ -24,20 +24,23 @@ def calculate_time_until_alarm(alarm_time_str):
     if alarm_time < now:
         alarm_time += timedelta(days=1)
 
-    return (alarm_time - now).total_seconds()
+    time_until_alarm = (alarm_time - now).total_seconds()
+    return time_until_alarm, alarm_time.strftime("%H:%M")
 
 def execute_shock():
     alarm_time_str, shock_intensity, shock_duration = get_user_input()
     
-    time_until_alarm = calculate_time_until_alarm(alarm_time_str)
+    time_until_alarm, formatted_alarm_time = calculate_time_until_alarm(alarm_time_str)
     
-    print(f"Alarm is set for {alarm_time_str}.")
+    print(f"Alarm is set for {formatted_alarm_time}.")
+    print(f"Shock intensity set to {shock_intensity}")
+    print(f"Shock duration set to {shock_duration}")
     print(f"Waiting for {int(time_until_alarm)} seconds until the alarm goes off.")
     
     sleep(time_until_alarm)
     
     pishock.shock(shock_intensity, shock_duration)
-    print("What a shocking suprise that was! Shock has been delivered!")
+    print("Shock delivered!")
 
 if __name__ == "__main__":
     execute_shock()
