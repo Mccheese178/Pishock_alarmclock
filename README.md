@@ -14,3 +14,4 @@ A fun little alarm that shocks you when it goes off
 9. Follow promps given
 
 ## You must keep all files together for the code to run
+## Requires Python 3.11.9
