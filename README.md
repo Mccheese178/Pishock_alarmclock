@@ -1,4 +1,4 @@
-# Pishock_alarmclock
+# Pishock Alarmclock
 _A fun little alarm that shocks you when it goes off_
 
 
