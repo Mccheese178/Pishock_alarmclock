@@ -37,7 +37,7 @@ def execute_shock():
     sleep(time_until_alarm)
     
     pishock.shock(shock_intensity, shock_duration)
-    print("Shock delivered!")
+    print("What a shocking suprise that was! Shock has been delivered!")
 
 if __name__ == "__main__":
     execute_shock()
