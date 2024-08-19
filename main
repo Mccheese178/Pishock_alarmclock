@@ -2,10 +2,12 @@ from datetime import datetime, timedelta
 from time import sleep
 from Pyshock import PishockAPI
 
-username = "Mccheese178"
-api_key = "c47f4806-62e4-4b7f-8e55-c23276001aa4"
-share_code = "2DDE5C40490"
-app_name = "Test-bot"
+
+#change these variable:
+username = "" #Your username on the PiShock website
+api_key = "" #Your api key from the PiShock website
+share_code = "" #code that you want the alarm to use 
+app_name = "" #What you want to name the app
 
 pishock = PishockAPI(api_key, username, share_code, app_name)
 
