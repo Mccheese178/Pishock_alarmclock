@@ -14,9 +14,15 @@ pishock = PishockAPI(api_key, username, share_code, app_name)
 test_mode = False
 
 def get_user_input():
-    alarm_time_str = input("Enter the alarm time (in 24 hour HH:MM format): ")
-    intensity = int(input("Enter the shock intensity, 1-100: "))
-    shockduration = int(input("Enter the shock duration (in seconds, 1-15): "))
+    if test_mode:
+        intensity = int(input("Enter the shock intensity, 1-100: "))
+        shockduration = int(input("Enter the shock duration (in seconds, 1-15): "))
+        alarm_time_str = None
+    else:
+        alarm_time_str = input("Enter the alarm time (in 24 hour HH:MM format): ")
+        intensity = int(input("Enter the shock intensity, 1-100: "))
+        shockduration = int(input("Enter the shock duration (in seconds, 1-15): "))
+
     return alarm_time_str, intensity, shockduration
 
 def calculate_time_until_alarm(alarm_time_str):
@@ -32,15 +38,14 @@ def calculate_time_until_alarm(alarm_time_str):
 def execute_shock():
     alarm_time_str, shock_intensity, shock_duration = get_user_input()
     
-    time_until_alarm, formatted_alarm_time = calculate_time_until_alarm(alarm_time_str)
-    
-    print(f"Alarm is set for {formatted_alarm_time}.")
     print(f"Shock intensity set to {shock_intensity}")
     print(f"Shock duration set to {shock_duration}")
     
-    if test_mode:
+    if test_mode is True:
         print("Test mode activated, sending shock now.")
     else:
+        time_until_alarm, formatted_alarm_time = calculate_time_until_alarm(alarm_time_str)
+        print(f"Alarm is set for {formatted_alarm_time}.")
         print(f"Waiting for {int(time_until_alarm)} seconds until the alarm goes off.")
         sleep(time_until_alarm)
     
