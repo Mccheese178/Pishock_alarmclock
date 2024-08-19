@@ -11,9 +11,11 @@ app_name = "" #What you want to name the app
 
 pishock = PishockAPI(api_key, username, share_code, app_name)
 
+test_mode = False
+
 def get_user_input():
     alarm_time_str = input("Enter the alarm time (in 24 hour HH:MM format): ")
-    intensity = float(input("Enter the shock intensity, 1-100: "))//100
+    intensity = int(input("Enter the shock intensity, 1-100: "))
     shockduration = int(input("Enter the shock duration (in seconds, 1-15): "))
     return alarm_time_str, intensity, shockduration
 
@@ -35,12 +37,16 @@ def execute_shock():
     print(f"Alarm is set for {formatted_alarm_time}.")
     print(f"Shock intensity set to {shock_intensity}")
     print(f"Shock duration set to {shock_duration}")
-    print(f"Waiting for {int(time_until_alarm)} seconds until the alarm goes off.")
     
-    sleep(time_until_alarm)
+    if test_mode:
+        print("Test mode activated, sending shock now.")
+    else:
+        print(f"Waiting for {int(time_until_alarm)} seconds until the alarm goes off.")
+        sleep(time_until_alarm)
     
     pishock.shock(shock_intensity, shock_duration)
-    print("What a shocking surprise that was! Shock delivered!")
+    print("Shock delivered!")
+    
 
 if __name__ == "__main__":
     execute_shock()
