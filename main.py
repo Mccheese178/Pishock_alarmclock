@@ -12,7 +12,7 @@ app_name = "" #What you want to name the app
 pishock = PishockAPI(api_key, username, share_code, app_name)
 
 def get_user_input():
-    alarm_time_str = input("Enter the alarm time (in HH:MM format): ")
+    alarm_time_str = input("Enter the alarm time (in 24 hour HH:MM format): ")
     intensity = float(input("Enter the shock intensity, .01 being 1% and 1 being 100%: "))
     shockduration = int(input("Enter the shock duration (in seconds, 1-15): "))
     return alarm_time_str, intensity, shockduration
