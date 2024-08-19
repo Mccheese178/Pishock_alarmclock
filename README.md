@@ -1,17 +1,14 @@
 # Pishock_alarmclock
-A fun little alarm that shocks you when it goes off
+_A fun little alarm that shocks you when it goes off_
 
 
-# How to use Pishock Alam Clock
+## How to use Pishock Alarm Clock
 
-1. Download the zip file and extract all to desired location
-2. Open file locaiton after extraciton
-3. Open Command Prompt and type "pip install requests"
-5. Once it installs, navigate to the flie location to open main.py in a text editor
-6. Edit the variables (username, api_key, share_code, app_name). Save then close
-7. Hold shift and right click in the flie location (make sure you do not have a file selected), and then click "open powershell window here"
-8. Type "python main.py" and press enter
-9. Follow promps given
+1. Download and extract the zip file to a desired location
+2. Open a command prompt at the file location and install the required "requests" package with `pip install requests`
+3. With your favorite editor, edit the variables in `main.py` (username, api_key, share_code, app_name). Save then close
+4. Execute main with `python main.py`
+5. Follow the prompts given
 
-## You must keep all files together for the code to run
-## Requires Python 3.11.9
+* _Requires Python 3.11.9_
+* _Keep all files together for the code to run_
