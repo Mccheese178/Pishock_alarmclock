@@ -12,4 +12,5 @@ _A fun little alarm that shocks you when it goes off_
 
 * _Requires Python 3.11.9_
 * _Test mode available_
- _Keep all files together for the code to run. Use at your own risk_
+
+_Keep all files together for the code to run. Use at your own risk_
