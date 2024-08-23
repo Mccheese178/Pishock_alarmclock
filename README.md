@@ -13,5 +13,6 @@ _A fun little alarm that shocks you when it goes off_
 * _Requires Python 3.11.9_
 * _Test mode available_
 * _Vibrate available_
+* _There is a periodic vibrate set to 0 that repeats every 120 seconds to keep the pishock website pinged_
 
 _Keep all files together for the code to run. Use at your own risk_
