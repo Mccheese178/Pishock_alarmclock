@@ -1,5 +1,5 @@
 # Pishock Alarmclock
-_A fun little alarm that shocks you when it goes off_
+_A fun little alarm that shocks (or vibrates) you when it goes off_
 
 
 ## How to use Pishock Alarm Clock
