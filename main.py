@@ -11,6 +11,7 @@ app_name = "" #What you want to name the app
 test_mode = False  # Set to true if you want to bypass setting an alarm
 
 
+# Do not change anything below or the code will not run properly
 pishock = PishockAPI(api_key, username, share_code, app_name)
 alarm_triggered = False
 
