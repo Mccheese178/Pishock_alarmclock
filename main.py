@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from time import sleep
 from threading import Thread
 from Pyshock import PishockAPI
+import random
 
 #change these variables:
 username = "" #Your username on the PiShock website
@@ -57,7 +58,7 @@ def execute_action(action, intensity, duration):
         pishock.vibrate(intensity, duration)
         print("\nVibration delivered!")
     alarm_triggered = True
-
+        
 def check_for_time_left(alarm_time):
     while not alarm_triggered:
         user_input = input("Type 'time left' to check the remaining time: ").strip().lower()
@@ -73,7 +74,7 @@ def execute_shock():
     print(f"Intensity set to {intensity}")
     print(f"Duration set to {duration}")
 
-    action = input("Would you like to Shock or Vibrate? (s for shock, v for vibrate): ").strip().lower()
+    action = input("Would you like to Shock or Vibrate? (s for shock, v for vibrate, r for random): ").strip().lower()
 
     if test_mode:
         print("Test mode activated.")

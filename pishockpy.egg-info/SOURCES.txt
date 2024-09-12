@@ -1,0 +1,8 @@
+LICENSE
+README.md
+setup.py
+pishockpy.egg-info/PKG-INFO
+pishockpy.egg-info/SOURCES.txt
+pishockpy.egg-info/dependency_links.txt
+pishockpy.egg-info/requires.txt
+pishockpy.egg-info/top_level.txt
