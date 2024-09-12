@@ -27,7 +27,13 @@ def get_user_input():
         alarm_time_str = None
     else:
         alarm_time_str = input("Enter the alarm time (in 24 hour HH:MM format): ")
-        intensity = int(input("Enter the action intensity 1-100: "))
+        intensity = (input("Enter the action intensity 1-100 (r for random): "))
+        
+        if intensity == 'r':
+            intensity = random.randint(1, 100)
+        else:
+            intensity = int(input)
+        
         shock_duration = int(input("Enter the action duration (in seconds, 1-15): "))
 
     return alarm_time_str, intensity, shock_duration
