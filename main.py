@@ -23,7 +23,7 @@ def periodic_vibration():
 
 def get_user_input():
     if test_mode:
-        intensity = int(input("Enter the action intensity, 1-100: "))
+        intensity = int(input("Enter the action intensity, 1-100 (0 if you want to beep): "))
         shock_duration = int(input("Enter the action duration (in seconds, 1-15): "))
         alarm_time_str = None
     else:
@@ -57,6 +57,9 @@ def execute_action(action, intensity, duration):
     elif action == 'v':
         pishock.vibrate(intensity, duration)
         print("\nVibration delivered!")
+    if action == 'b':
+        pishock.beep(duration)
+        print("\nBeep sounded!")
     alarm_triggered = True
         
 def check_for_time_left(alarm_time):
@@ -74,13 +77,12 @@ def execute_shock():
     print(f"Intensity set to {intensity}")
     print(f"Duration set to {duration}")
 
-    action = input("Would you like to Shock or Vibrate? (s for shock, v for vibrate, r for random): ").strip().lower()
+    action = input("Would you like to Shock, Vibrate, or beep? (s for shock, v for vibrate, b for beep): ").strip().lower()
 
     if test_mode:
         print("Test mode activated.")
         while True:
             execute_action(action, intensity, duration)
-            sleep(duration)
             repeat = input("Repeat the action? (y/n): ").strip().lower()
             if repeat != 'y':
                 break
