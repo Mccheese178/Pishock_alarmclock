@@ -28,7 +28,7 @@ def get_user_input():
         alarm_time_str = None
     else:
         alarm_time_str = input("Enter the alarm time (in 24 hour HH:MM format): ")
-        intensity = (input("Enter the action intensity 1-100 (r for random. If you want beep, enter 0): "))
+        intensity = (input("Enter the action intensity, 1-100 (r for random. If you want beep, enter 0): "))
         
         if intensity == 'r':
             intensity = random.randint(1, 100)
