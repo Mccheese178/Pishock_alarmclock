@@ -2,7 +2,7 @@
 _A fun little alarm that shocks (or vibrates/beep) you when it goes off_
 
 
-## How to use Pishock Alarm Clock
+## How to use Pishock Alarmclock
 
 1. Download and extract the zip file to a desired location
 2. Open a command prompt at the file location and install the required "requests" package with `pip install requests`
