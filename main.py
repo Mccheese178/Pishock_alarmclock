@@ -7,7 +7,7 @@ import random
 #change these variables:
 username = "" #Your username on the PiShock website
 api_key = "" #Your api key from the PiShock website
-share_code = "" #code that you want the alarm to use 
+share_code = "" #Code that you want the alarm to use 
 app_name = "" #What you want to name the app
 test_mode = False  # Set to true if you want to bypass setting an alarm
 
