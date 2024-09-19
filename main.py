@@ -23,7 +23,7 @@ def periodic_vibration():
 
 def get_user_input():
     if test_mode:
-        intensity = int(input("Enter the action intensity (in seconds, 1-100. If you want a beep, enter 0): "))
+        intensity = int(input("Enter the action intensity, 1-100 (If you want a beep, enter 0): "))
         shock_duration = int(input("Enter the action duration (in seconds, 1-15): "))
         alarm_time_str = None
     else:
