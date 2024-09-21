@@ -3,23 +3,35 @@ from time import sleep
 from threading import Thread
 from Pyshock import PishockAPI
 import random
+import os
 
-#change these variables:
-username = "" #Your username on the PiShock website
-api_key = "" #Your api key from the PiShock website
-share_code = "" #Code that you want the alarm to use 
-app_name = "" #What you want to name the app
+# Change these variables:
+username = "" # Your username on the PiShock website
+api_key = "" # Your api key from the PiShock website
+share_code = "" # Code that you want the alarm to use 
+app_name = "" # What you want to name the app
 test_mode = False  # Set to true if you want to bypass setting an alarm
 
 
-# Do not change anything below or the code will not run properly
+# DO NOT CHANGE ANYTHING BELOW OR THE CODE WILL NOT RUN PROPERLY
 pishock = PishockAPI(api_key, username, share_code, app_name)
 alarm_triggered = False
+alarm_file = "alarm_time.txt"
 
 def periodic_vibration():
     while not alarm_triggered:
         pishock.vibrate(0, 1)
         sleep(120)
+
+def save_alarm_time(alarm_time_str):
+    with open(alarm_file, "w") as file:
+        file.write(alarm_time_str)
+
+def load_alarm_time():
+    if os.path.exists(alarm_file):
+        with open(alarm_file, "r") as file:
+            return file.read().strip()
+    return None
 
 def get_user_input():
     if test_mode:
@@ -57,7 +69,7 @@ def execute_action(action, intensity, duration):
     elif action == 'v':
         pishock.vibrate(intensity, duration)
         print("\nVibration delivered!")
-    if action =='b':
+    if action == 'b':
         pishock.beep(duration)
         print("\nBeep sounded!")
         
@@ -69,11 +81,24 @@ def check_for_time_left(alarm_time):
         if user_input == 'time left':
             now = datetime.now()
             remaining_time = (alarm_time - now).total_seconds()
-            print(f"Time remaining: {int(remaining_time)} seconds.")
+
+            hours = int(remaining_time // 3600)
+            minutes = int((remaining_time % 3600) // 60)
+            seconds = int(remaining_time % 60)
+            print(f"Time remaining: {hours} hours, {minutes} minutes, and {seconds} seconds.")
 
 def execute_shock():
     global alarm_triggered
-    alarm_time_str, intensity, duration = get_user_input()
+
+    saved_alarm_time = load_alarm_time()
+    if saved_alarm_time:
+        use_saved = input(f"Saved alarm time found ({saved_alarm_time}). Use this time? (y/n): ").strip().lower()
+        if use_saved == 'y':
+            alarm_time_str = saved_alarm_time
+        else:
+            alarm_time_str, intensity, duration = get_user_input()
+    else:
+        alarm_time_str, intensity, duration = get_user_input()
 
     print(f"Intensity set to {intensity}")
     print(f"Duration set to {duration}")
@@ -90,6 +115,12 @@ def execute_shock():
                 break
     else:
         time_until_alarm, alarm_time = calculate_time_until_alarm(alarm_time_str)
+
+        save_alarm = input("Would you like to save this alarm time for future use? (y/n): ").strip().lower()
+        if save_alarm == 'y':
+            save_alarm_time(alarm_time_str)
+            print("Alarm time saved.")
+
         print(f"Alarm is set for {alarm_time.strftime('%H:%M')}.")
 
         vibration_thread = Thread(target=periodic_vibration)
