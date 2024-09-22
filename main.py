@@ -95,6 +95,14 @@ def execute_shock():
         use_saved = input(f"Saved alarm time found ({saved_alarm_time}). Use this time? (y/n): ").strip().lower()
         if use_saved == 'y':
             alarm_time_str = saved_alarm_time
+            intensity = (input("Enter the action intensity, 1-100 (r for random. If you want beep, enter 0): "))
+            
+            if intensity == 'r':
+                intensity = random.randint(1, 100)
+            else:
+                intensity = int(intensity)
+            
+            duration = int(input("Enter the action duration (in seconds, 1-15): "))
         else:
             alarm_time_str, intensity, duration = get_user_input()
     else:
