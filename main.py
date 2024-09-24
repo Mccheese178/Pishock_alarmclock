@@ -72,7 +72,7 @@ def execute_action(action, intensity, duration):
 def check_for_time_left(remaining_seconds):
     while remaining_seconds > 0 and not alarm_triggered:
         sleep(60)
-        remaining_seconds -= 5
+        remaining_seconds -= 60
         if remaining_seconds > 0:
             hours = int(remaining_seconds // 3600)
             minutes = int((remaining_seconds % 3600) // 60)
