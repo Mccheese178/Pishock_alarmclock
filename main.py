@@ -117,7 +117,7 @@ def execute_shock():
     print(f"Intensity set to {intensity}")
     print(f"Duration set to {duration}")
 
-    action = input("Would you like to Shock or Vibrate? (s for shock, v for vibrate, b for beep): ").strip().lower()
+    action = input("Would you like to Shock, Vibrate, or Beep? (s for shock, v for vibrate, b for beep): ").strip().lower()
 
     if test_mode:
         print("Test mode activated.")
