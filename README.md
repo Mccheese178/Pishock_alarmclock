@@ -13,6 +13,7 @@ _A fun little alarm that shocks (or vibrates/beep) you when it goes off_
 * _Requires Python 3.11.9_
 * _Test mode available_
 * _Vibrate and beep available_
+* _Snooze alarm function_
 * _There is a periodic vibrate set to 0 that repeats every 120 seconds (2 minutes) to keep the pishock website pinged_
 
 _Keep all files together for the code to run._
