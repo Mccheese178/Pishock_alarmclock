@@ -5,16 +5,8 @@ from Pyshock import PishockAPI
 import random
 import os
 import sys
+from config import username, api_key, share_code, app_name, test_mode, snooze_duration
 
-# Change these variables:
-username = "" # Your username on the PiShock website
-api_key = "" # Your api key from the PiShock website
-share_code = "" # Code that you want the alarm to use 
-app_name = "" # What you want to name the app
-test_mode = False  # Set to 'True' if you want to bypass setting an alarm
-snooze_duration = "" # Set in minutes how long you want a snooze. If you don't want a snooze, set to '0'
-
-# DO NOT CHANGE ANYTHING BELOW OR THE CODE WILL NOT RUN PROPERLY
 pishock = PishockAPI(api_key, username, share_code, app_name)
 alarm_triggered = False
 alarm_file = "alarm_time.txt"
@@ -117,7 +109,7 @@ def execute_shock():
     print(f"Intensity set to {intensity}")
     print(f"Duration set to {duration}")
 
-    action = input("Would you like to Shock, Vibrate, or Beep? (s for shock, v for vibrate, b for beep): ").strip().lower()
+    action = input("Would you like to Shock or Vibrate? (s for shock, v for vibrate, b for beep): ").strip().lower()
 
     if test_mode:
         print("Test mode activated.")
