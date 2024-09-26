@@ -7,7 +7,7 @@ _A fun little alarm that shocks (or vibrates/beep) you when it goes off_
 1. Download and extract the zip file to a desired location
 2. Open a command prompt at the file location and install the required "requests" package with `pip install requests`
 3. With your favorite editor, edit the variables in `config.py` (username, api_key, share_code, app_name, test_mode, snooze_duration). Save then close
-4. Execute main with `python main.py` in CMD
+4. Open CMD in the file location and execute main with `python main.py` in CMD
 5. Follow the prompts given
 
 * _Requires Python 3.11.9_
