@@ -63,13 +63,17 @@ def execute_action(action, intensity, duration):
 
 def check_for_time_left(remaining_seconds):
     while remaining_seconds > 0 and not alarm_triggered:
-        sleep(60)
         remaining_seconds -= 60
+        sleep(60)
+        
         if remaining_seconds > 0:
             hours = int(remaining_seconds // 3600)
             minutes = int((remaining_seconds % 3600) // 60)
             seconds = int(remaining_seconds % 60)
             print(f"Time remaining: {hours} hours, {minutes} minutes, and {seconds} seconds.")
+
+        if remaining_seconds <= 0:
+            break
 
 def snooze_alarm(action, intensity, duration):
     global alarm_triggered
@@ -122,12 +126,17 @@ def execute_shock():
     else:
         time_until_alarm, alarm_time = calculate_time_until_alarm(alarm_time_str)
 
+        hours = int(time_until_alarm // 3600)
+        minutes = int((time_until_alarm % 3600) // 60)
+        seconds = int(time_until_alarm % 60)
+
         save_alarm = input("Would you like to save this alarm time for future use? (y/n): ").strip().lower()
         if save_alarm == 'y':
             save_alarm_time(alarm_time_str)
             print("Alarm time saved.")
 
         print(f"Alarm is set for {alarm_time.strftime('%H:%M')}.")
+        print(f"Time remaining: {hours} hours, {minutes} minutes, {seconds} seconds.")
         
         vibration_thread = Thread(target=periodic_vibration)
         vibration_thread.start()
