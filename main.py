@@ -16,15 +16,17 @@ def periodic_vibration():
         pishock.vibrate(0, 0)
         sleep(120)
 
-def save_alarm_time(alarm_time_str):
+def save_alarm_settings(alarm_time_str, intensity, duration):
     with open(alarm_file, "w") as file:
-        file.write(alarm_time_str)
+        file.write(f"{alarm_time_str} {intensity} {duration}")
 
-def load_alarm_time():
+def load_alarm_settings():
     if os.path.exists(alarm_file):
         with open(alarm_file, "r") as file:
-            return file.read().strip()
-    return None
+            line = file.read().strip()
+            alarm_time_str, intensity, duration = line.split()
+            return alarm_time_str, int(intensity), int(duration)
+    return None, None, None
 
 def get_user_input():
     if test_mode:
@@ -63,17 +65,13 @@ def execute_action(action, intensity, duration):
 
 def check_for_time_left(remaining_seconds):
     while remaining_seconds > 0 and not alarm_triggered:
-        remaining_seconds -= 60
         sleep(60)
-        
+        remaining_seconds -= 60
         if remaining_seconds > 0:
             hours = int(remaining_seconds // 3600)
             minutes = int((remaining_seconds % 3600) // 60)
             seconds = int(remaining_seconds % 60)
             print(f"Time remaining: {hours} hours, {minutes} minutes, and {seconds} seconds.")
-
-        if remaining_seconds <= 0:
-            break
 
 def snooze_alarm(action, intensity, duration):
     global alarm_triggered
@@ -94,17 +92,16 @@ def snooze_alarm(action, intensity, duration):
 def execute_shock():
     global alarm_triggered
 
-    saved_alarm_time = load_alarm_time()
+    saved_alarm_time, saved_intensity, saved_duration = load_alarm_settings()
+    loaded_from_file = False
+    
     if saved_alarm_time:
-        use_saved = input(f"Saved alarm time found ({saved_alarm_time}). Use this time? (y/n): ").strip().lower()
+        use_saved = input(f"Saved alarm settings found ({saved_alarm_time}, {saved_intensity}, {saved_duration}). Would you like to load? (y/n): ").strip().lower()
         if use_saved == 'y':
             alarm_time_str = saved_alarm_time
-            intensity = input("Enter action intensity (1-100 or 'r' for random, '0' for beep): ")
-            if intensity == 'r':
-                intensity = random.randint(1, 100)
-            else:
-                intensity = int(intensity)
-            duration = int(input("Enter action duration (in seconds, 1-15): "))
+            intensity = saved_intensity
+            duration = saved_duration
+            loaded_from_file = True
         else:
             alarm_time_str, intensity, duration = get_user_input()
     else:
@@ -126,17 +123,13 @@ def execute_shock():
     else:
         time_until_alarm, alarm_time = calculate_time_until_alarm(alarm_time_str)
 
-        hours = int(time_until_alarm // 3600)
-        minutes = int((time_until_alarm % 3600) // 60)
-        seconds = int(time_until_alarm % 60)
-
-        save_alarm = input("Would you like to save this alarm time for future use? (y/n): ").strip().lower()
-        if save_alarm == 'y':
-            save_alarm_time(alarm_time_str)
-            print("Alarm time saved.")
+        if not loaded_from_file:
+            save_alarm = input("Would you like to save this alarm settings for future use? (y/n): ").strip().lower()
+            if save_alarm == 'y':
+                save_alarm_settings(alarm_time_str, intensity, duration)
+                print("Alarm settings saved.")
 
         print(f"Alarm is set for {alarm_time.strftime('%H:%M')}.")
-        print(f"Time remaining: {hours} hours, {minutes} minutes, {seconds} seconds.")
         
         vibration_thread = Thread(target=periodic_vibration)
         vibration_thread.start()
