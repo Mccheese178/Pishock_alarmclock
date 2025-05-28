@@ -76,10 +76,10 @@ class PishockAPI(object):
 
     def vibrate(self, intensity: int, duration: int) -> None:
         """Vibrate the user with the specified intensity and duration.
-        Intensity must be between 0 and 1, duration must be between 0 and 15."""
+        Intensity must be between 0 and 100, duration must be between 0 and 15."""
         # Sanity checks
-        if not 1 <= intensity <= 100:
-            raise ValueError("Intensity must be between 1 and 100")
+        if not 0 <= intensity <= 100:
+            raise ValueError("Intensity must be between 0 and 100")
         if not 0 <= duration <= 15:
             raise ValueError("Duration must be between 0 and 15")
         # Convert intensity to a percentage
