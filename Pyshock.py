@@ -1,6 +1,7 @@
 import requests
 import json
 from typing import Dict
+from threading import Thread
 
 # Constants
 PISHOCK_URL = "https://do.pishock.com/api/apioperate/"
@@ -19,11 +20,11 @@ ERROR_MESSAGES = {
 
 
 class PishockAPI(object):
-    def __init__(self, api_key: str, username: str, sharecode: str, app_name: str):
+    def __init__(self, api_key: str, username: str, sharecode: list[str], app_name: str):
         self.api_key: str = api_key
         self.username: str = username
         self.app_name: str = app_name
-        self.sharecode: str = sharecode
+        self.sharecode: list[str] = sharecode 
         self.base_url: str = PISHOCK_URL
         self.headers: Dict[str, str] = {
             "Content-Type": "application/json",
@@ -59,16 +60,24 @@ class PishockAPI(object):
             raise ValueError("Duration must be between 0 and 15")
         # Convert intensity to a percentage
         intensity = int(intensity)
-        data = {
-            "Username": self.username,
-            "Name": self.app_name,
-            "Code": self.sharecode,
-            "Intensity": intensity,
-            "Duration": duration,
-            "Apikey": self.api_key,
-            "Op": "0"
-        }
-        self._send_request(data)
+        threads = []
+        for code in self.sharecode:
+            data = {
+                "Username": self.username,
+                "Name": self.app_name,
+                "Code": code,
+                "Intensity": intensity,
+                "Duration": duration,
+                "Apikey": self.api_key,
+                "Op": "0"
+            }
+            t = Thread(target = self._send_request, args=(data,))
+            threads.append(t)
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
 
     def minishock(self, intensity: float) -> None:
         """A shortcut for a 0.5 second shock at the specified intensity."""
@@ -84,28 +93,44 @@ class PishockAPI(object):
             raise ValueError("Duration must be between 0 and 15")
         # Convert intensity to a percentage
         intensity = int(intensity)
-        data = {
-            "Username": self.username,
-            "Name": self.app_name,
-            "Code": self.sharecode,
-            "Intensity": intensity,
-            "Duration": duration,
-            "Apikey": self.api_key,
-            "Op": "1"
-        }
-        self._send_request(data)
+        threads = []
+        for code in self.sharecode:
+            data = {
+                "Username": self.username,
+                "Name": self.app_name,
+                "Code": code,
+                "Intensity": intensity,
+                "Duration": duration,
+                "Apikey": self.api_key,
+                "Op": "1"
+            }
+            t = Thread(target = self._send_request, args=(data,))
+            threads.append(t)
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
 
     def beep(self, duration: int) -> None:
         """Beep the user for the specified duration.
         Duration must be between 0 and 15."""
         if not 0 <= duration <= 15:
-            raise ValueError("Duration must be between 0 and 15")
-        data = {
-            "Username": self.username,
-            "Name": self.app_name,
-            "Code": self.sharecode,
-            "Duration": duration,
-            "Apikey": self.api_key,
-            "Op": "2"
-        }
-        self._send_request(data)
+            raise ValueError("Duration must be between 0 and 15")     
+        threads = []
+        for code in self.sharecode:
+            data = {
+                "Username": self.username,
+                "Name": self.app_name,
+                "Code": code,
+                "Duration": duration,
+                "Apikey": self.api_key,
+                "Op": "2"
+            }
+            t = Thread(target = self._send_request, args=(data,))
+            threads.append(t)
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
